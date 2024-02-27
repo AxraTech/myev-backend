@@ -46,7 +46,7 @@ const FileUploadInfoGenerator = async (contentType, folder) => {
         }
         const bucketParams = {
             Bucket: "axra",
-            Key: `MyEV/${folder}/${contentType}/${fileName}`,
+            Key: `MyEV/${folder}/${fileName}`,
             ContentType: contentType,
             ACL: "public-read",
         };
