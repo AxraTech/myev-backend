@@ -10,8 +10,12 @@ const router = express.Router();
 router.post("/", async (req, res) => {
     try {
         let {content_type, folder} = req.body.input;
-        if (!content_type && !folder && !(folder.includes('users') || folder.includes('blogs') || folder.includes('stations')) && !(content_type.includes('image') || content_type.includes('video'))) {
+        if (!(content_type && folder)) {
             return res.status(400).json("missing required fields")
+        } else if (content_type !== "image" && content_type !== "video") {
+            return res.status(400).json("content_type must be image or video")
+        } else if (folder !== "users" && folder !== "stations" && folder !== "blogs") {
+            return res.status(400).json("folder must be users, stations or blogs")
         } else {
             const fileUploadInfo = await FileUploadInfoGenerator(content_type, folder);
             res.json({
